@@ -34,10 +34,10 @@ namespace Taxi.Web
             });
 
             services.AddDbContext<DataContext>(cfg => {
-                cfg.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
-            
+                cfg.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));            
             });
 
+            services.AddTransient<SeedDb>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }

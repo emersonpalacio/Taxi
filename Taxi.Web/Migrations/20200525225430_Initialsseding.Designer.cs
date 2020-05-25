@@ -10,8 +10,8 @@ using Taxi.Web.Data;
 namespace Taxi.Web.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20200525212930_tripDetails")]
-    partial class tripDetails
+    [Migration("20200525225430_Initialsseding")]
+    partial class Initialsseding
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

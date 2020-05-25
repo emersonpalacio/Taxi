@@ -4,10 +4,23 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Taxi.Web.Migrations
 {
-    public partial class tripDetails : Migration
+    public partial class InitialDb : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "Taxis",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Plaque = table.Column<string>(maxLength: 6, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Taxis", x => x.Id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "Trips",
                 columns: table => new
@@ -77,6 +90,9 @@ namespace Taxi.Web.Migrations
 
             migrationBuilder.DropTable(
                 name: "Trips");
+
+            migrationBuilder.DropTable(
+                name: "Taxis");
         }
     }
 }
