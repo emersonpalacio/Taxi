@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +11,7 @@ using Taxi.Web.Data.Entities;
 
 namespace Taxi.Web.Controllers
 {
+    [Authorize(Roles ="Admin")]
     public class TaxisController : Controller
     {
         private readonly DataContext _context;
@@ -56,8 +58,22 @@ namespace Taxi.Web.Controllers
             {
                 model.Plaque = model.Plaque.ToUpper();
                 _context.Add(model);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                try
+                {
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+                catch (Exception ex)
+                {
+                    if (ex.InnerException.Message.Contains(""))
+                    {
+                        ModelState.AddModelError(string.Empty,"Plaque exist in Database");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError(string.Empty, ex.InnerException.Message);
+                    }             
+                }
             }
             return View(model);
         }
@@ -92,9 +108,22 @@ namespace Taxi.Web.Controllers
             {
                 taxiEntity.Plaque = taxiEntity.Plaque.ToUpper();
                 _context.Update(taxiEntity);
-                await _context.SaveChangesAsync();             
-            
-                return RedirectToAction(nameof(Index));
+                try
+                {
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+                catch (Exception ex)
+                {
+                    if (ex.InnerException.Message.Contains(""))
+                    {
+                        ModelState.AddModelError(string.Empty, "Plaque exist in Database");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError(string.Empty, ex.InnerException.Message);
+                    }
+                }
             }
             return View(taxiEntity);
         }
@@ -117,9 +146,6 @@ namespace Taxi.Web.Controllers
             _context.Taxis.Remove(taxiEntity);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
-        }
-
-
-     
+        }    
     }
 }
