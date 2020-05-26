@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Taxi.Web.Data;
 using Taxi.Web.Data.Entities;
+using Taxi.Web.Helpers;
 
 namespace Taxi.Web.Controllers.Api
 {
@@ -15,10 +16,13 @@ namespace Taxi.Web.Controllers.Api
     public class TaxisController : ControllerBase
     {
         private readonly DataContext _context;
+        private readonly IConverterHelper _converterHelper;
 
-        public TaxisController(DataContext context)
+        public TaxisController(DataContext context,
+                               IConverterHelper converterHelper)
         {
             _context = context;
+            this._converterHelper = converterHelper;
         }
 
         // GET: api/Taxis
@@ -37,18 +41,26 @@ namespace Taxi.Web.Controllers.Api
                 return BadRequest(ModelState);
             }
 
-            var taxiEntity = await _context.Taxis
-                                                .Include(t => t.Trips )
-                                                .FirstOrDefaultAsync( t => t.Plaque ==plaque);
+
+            plaque = plaque.ToUpper();
+            TaxiEntity taxiEntity = await _context.Taxis
+                .Include(t => t.User) //driver
+                .Include(t => t.Trips)
+                .ThenInclude(t => t.TripDetails)
+                .Include(t => t.Trips)
+                .ThenInclude(t => t.User)//user pasanger
+                .FirstOrDefaultAsync(t => t.Plaque == plaque);
 
             if (taxiEntity == null)
             {
                 return NotFound();
             }
 
-            return Ok(taxiEntity);
+
+            return Ok(_converterHelper.ToTaxiResponse(taxiEntity));
+
         }
 
-       
+
     }
 }
