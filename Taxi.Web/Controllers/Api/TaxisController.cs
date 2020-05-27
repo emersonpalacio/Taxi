@@ -53,7 +53,9 @@ namespace Taxi.Web.Controllers.Api
 
             if (taxiEntity == null)
             {
-                return NotFound();
+                taxiEntity = new TaxiEntity { Plaque = plaque.ToUpper()};
+                _context.Taxis.Add(taxiEntity);
+                await _context.SaveChangesAsync();
             }
 
 
