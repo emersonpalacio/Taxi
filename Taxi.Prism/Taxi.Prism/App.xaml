@@ -5,7 +5,11 @@
              x:Class="Taxi.Prism.App">
   <Application.Resources>
 
-    <!-- Application resource dictionary -->
+        <ResourceDictionary>
+            <!-- Parameters -->
+            <x:String x:Key="UrlAPI">https://taxiweb84.azurewebsites.net/</x:String>
+        </ResourceDictionary>
 
-  </Application.Resources>
+
+    </Application.Resources>
 </prism:PrismApplication>
