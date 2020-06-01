@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:busyindicator="clr-namespace:Syncfusion.SfBusyIndicator.XForms;assembly=Syncfusion.SfBusyIndicator.XForms"             
+             xmlns:rating="clr-namespace:Syncfusion.SfRating.XForms;assembly=Syncfusion.SfRating.XForms"
              xmlns:prism="http://prismlibrary.com"
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="Taxi.Prism.Views.TaxiHistoryPage"
@@ -25,10 +26,17 @@
                     Text="Check Plaque"
                     TextColor="White"/>
             </StackLayout>
+            <rating:SfRating HorizontalOptions="Center" 
+                             IsEnabled="False"
+                             IsVisible="{Binding IsRunning}"
+                             Margin="0,5"
+                             Precision="Exact"
+                             Value="{Binding Taxi.Qualification}" />
             <Label FontAttributes="Bold" 
-               FontSize="48"
-               HorizontalOptions="Center"
-               Text="{Binding Taxi.Qualification, StringFormat='{0:N2}'}"/>
+                   FontSize="Large"
+                   HorizontalOptions="Center"
+                   Text="{Binding Taxi.Qualification, StringFormat='Qualification: {0:N2}'}"/>
+
             <StackLayout Orientation="Horizontal">
                 <Label Text="Number of trips:"/>
                 <Label Text="{Binding Taxi.NumberOfTrips, StringFormat='{0:N0}'}"/>

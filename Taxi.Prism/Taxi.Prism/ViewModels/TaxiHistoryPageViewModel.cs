@@ -11,8 +11,7 @@ using Taxi.Common.Models;
 namespace Taxi.Prism.ViewModels
 {
     public class TaxiHistoryPageViewModel : ViewModelBase
-    {
-       
+    {       
         private readonly IApiService _apiService;
         private TaxiResponse _taxi;
         private DelegateCommand _checkPlaqueCommand;
@@ -34,7 +33,6 @@ namespace Taxi.Prism.ViewModels
 
         }
 
-
         public TaxiResponse Taxi
         {
             get => _taxi;
@@ -47,7 +45,7 @@ namespace Taxi.Prism.ViewModels
 
         private async void CheckPlaqueAsync()
         {
-            IsRunning = false;
+            
             if (string.IsNullOrEmpty(Plaque))
             {
                 await App.Current.MainPage.DisplayAlert(
@@ -66,9 +64,10 @@ namespace Taxi.Prism.ViewModels
                     "Accept");
                 return;
             }
-
+            IsRunning = true;
             string url = App.Current.Resources["UrlAPI"].ToString();
             Response response = await _apiService.GetTaxiAsync(Plaque, url, "api", "/Taxis");
+            IsRunning = false;
             if (!response.IsSuccess)
             {
                 await App.Current.MainPage.DisplayAlert(
@@ -80,7 +79,6 @@ namespace Taxi.Prism.ViewModels
 
             Taxi = (TaxiResponse)response.Result;
         }
-
     }
 }
 

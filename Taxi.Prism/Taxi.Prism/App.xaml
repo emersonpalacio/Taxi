@@ -9,7 +9,5 @@
             <!-- Parameters -->
             <x:String x:Key="UrlAPI">https://taxiweb84.azurewebsites.net/</x:String>
         </ResourceDictionary>
-
-
     </Application.Resources>
 </prism:PrismApplication>
