@@ -39,7 +39,6 @@
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
-
             </StackLayout>
         </ContentPage>
     </MasterDetailPage.Master>

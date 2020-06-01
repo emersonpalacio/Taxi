@@ -23,6 +23,5 @@ namespace Taxi.Prism.ViewModels
         {
             await _navigationService.NavigateAsync($"/TaxiMasterDetailPage/NavigationPage/{PageName}");
         }
-
     }
 }

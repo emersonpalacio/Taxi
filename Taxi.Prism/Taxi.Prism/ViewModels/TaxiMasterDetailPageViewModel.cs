@@ -64,8 +64,7 @@ namespace Taxi.Prism.ViewModels
             };
 
             Menus = new ObservableCollection<MenuItemViewModel>(
-                menus.Select(m => new MenuItemViewModel(_navigationService)
-                {
+                menus.Select(m => new MenuItemViewModel(_navigationService){
                     Icon = m.Icon,
                     PageName = m.PageName,
                     Title = m.Title

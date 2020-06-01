@@ -15,8 +15,7 @@ using Taxi.Common;
 namespace Taxi.Prism
 {
     public partial class App
-    {
-      
+    {      
         public App() : this(null) { }
 
         public App(IPlatformInitializer initializer) : base(initializer) { }
@@ -24,7 +23,6 @@ namespace Taxi.Prism
         protected override async void OnInitialized()
         {
             InitializeComponent();
-
             await NavigationService.NavigateAsync("TaxiMasterDetailPage/NavigationPage/HomePage");
         }
 
