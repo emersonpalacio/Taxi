@@ -10,6 +10,7 @@ using Taxi.Prism.Views;
 
 using Taxi.Common.Models;
 using Taxi.Common;
+using Syncfusion.Licensing;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace Taxi.Prism
@@ -22,6 +23,7 @@ namespace Taxi.Prism
 
         protected override async void OnInitialized()
         {
+            SyncfusionLicenseProvider.RegisterLicense("MjY1OTk3QDMxMzgyZTMxMmUzMERkWHFmT0VickdKaXQ5cDR2QUZMMThCR2g4bXVrRnpKTmFjY0pWUjB6dWM9");
             InitializeComponent();
             await NavigationService.NavigateAsync("TaxiMasterDetailPage/NavigationPage/HomePage");
         }

@@ -16,14 +16,24 @@ namespace Taxi.Prism.ViewModels
         private readonly IApiService _apiService;
         private TaxiResponse _taxi;
         private DelegateCommand _checkPlaqueCommand;
+        private bool _isRunning;
 
         public TaxiHistoryPageViewModel(
             INavigationService navigationService,
             IApiService apiService) : base(navigationService)
+
         {
             _apiService = apiService;
             Title = "Taxi History";
+            IsRunning = false;
         }
+        public bool IsRunning
+        {
+            get => _isRunning;
+            set => SetProperty(ref _isRunning, value);
+
+        }
+
 
         public TaxiResponse Taxi
         {
@@ -37,6 +47,7 @@ namespace Taxi.Prism.ViewModels
 
         private async void CheckPlaqueAsync()
         {
+            IsRunning = false;
             if (string.IsNullOrEmpty(Plaque))
             {
                 await App.Current.MainPage.DisplayAlert(
