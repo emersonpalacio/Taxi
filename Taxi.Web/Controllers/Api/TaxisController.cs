@@ -22,7 +22,7 @@ namespace Taxi.Web.Controllers.Api
                                IConverterHelper converterHelper)
         {
             _context = context;
-            this._converterHelper = converterHelper;
+            _converterHelper = converterHelper;
         }
 
         // GET: api/Taxis

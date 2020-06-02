@@ -4,6 +4,7 @@
              xmlns:busyindicator="clr-namespace:Syncfusion.SfBusyIndicator.XForms;assembly=Syncfusion.SfBusyIndicator.XForms"             
              xmlns:rating="clr-namespace:Syncfusion.SfRating.XForms;assembly=Syncfusion.SfRating.XForms"
              xmlns:prism="http://prismlibrary.com"
+             BackgroundColor="{StaticResource ColorBackgroud}"
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="Taxi.Prism.Views.TaxiHistoryPage"
              Title="{Binding Title}">
@@ -20,14 +21,11 @@
                    VerticalOptions="Center"/>
                 <Button BackgroundColor="Navy"
                     Command="{Binding CheckPlaqueCommand}"
-                    CornerRadius="20"
-                    HeightRequest="40"
-                    Margin="10,0"
-                    Text="Check Plaque"
-                    TextColor="White"/>
+                    Style="{StaticResource SecondaryButton}"
+                      Text="Check Plaque"   />
             </StackLayout>
             <rating:SfRating HorizontalOptions="Center" 
-                             IsEnabled="False"
+                           
                              IsVisible="{Binding IsRunning}"
                              Margin="0,5"
                              Precision="Exact"
@@ -62,17 +60,22 @@
                    FontAttributes="Bold"
                    Text="Score"/>
                 <Label Grid.Column="2"
+                       MaxLines="2"
+                       LineBreakMode="TailTruncation"
                    FontAttributes="Bold"
                    Text="Remarks"/>
             </Grid>
 
-            <CollectionView ItemsSource="{Binding Taxi.Trips}">
+            <CollectionView ItemsSource="{Binding Details}">
                 <CollectionView.ItemsLayout>
                     <GridItemsLayout Orientation="Vertical"/>
                 </CollectionView.ItemsLayout>
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <Grid>
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding SelectTripCommand}" />
+                            </Grid.GestureRecognizers>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width=".8*" />
                                 <ColumnDefinition Width=".5*" />
