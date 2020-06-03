@@ -24,7 +24,7 @@ namespace Taxi.Prism.ViewModels
             IApiService apiService) : base(navigationService)
 
         {
-            this._navigationService = navigationService;
+            _navigationService = navigationService;
             _apiService = apiService;
             Title = "Taxi History";
             IsRunning = false;
@@ -40,6 +40,7 @@ namespace Taxi.Prism.ViewModels
             get => _details;
             set => SetProperty(ref _details, value);
         }
+
         public TaxiResponse Taxi
         {
             get => _taxi;

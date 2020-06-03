@@ -14,7 +14,7 @@ namespace Taxi.Prism.ViewModels
 
         public MenuItemViewModel(INavigationService navigationService)
         {
-            _navigationService = navigationService;
+            _navigationService = navigationService;    
         }
 
         public DelegateCommand SelectMenuCommand => _selectMenuCommand ?? (_selectMenuCommand = new DelegateCommand(SelectMenuAsync));

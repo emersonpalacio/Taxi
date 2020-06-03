@@ -35,7 +35,7 @@ namespace Taxi.Web.Data
         private async Task<UserEntity> CheckUserAsync(string document, string firstName, string lastName, string email,
                                                                                 string phone, string address, UserType userType)
         {
-            var user = await _userHelper.GetUserByEmailAsync(email);
+            var user = await _userHelper.GetUserAsync(email);
             if (user == null)
             {
                 user = new UserEntity
