@@ -12,5 +12,6 @@ namespace Taxi.Web.Helpers
 
         TaxiResponse ToTaxiResponse(TaxiEntity taxiEntity);
         TripResponse ToTripResponse(TripEntity tripEntity);
+        UserResponse ToUserResponse(UserEntity user);
     }
 }

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Taxi.Common.Enum;
 using Taxi.Common.Models;
 using Taxi.Web.Data;
@@ -17,21 +18,24 @@ namespace Taxi.Web.Controllers.Api
     [Route("api/[Controller]")]
     public class AccountController : Controller
     {
-        private readonly DataContext _dataContext;
+        private readonly DataContext _context;
         private readonly IUserHelper _userHelper;
         private readonly IMailHelper _mailHelper;
         private readonly IImageHelper _imageHelper;
+        private readonly IConverterHelper _converterHelper;
 
         public AccountController(
             DataContext dataContext,
             IUserHelper userHelper,
             IMailHelper mailHelper,
-            IImageHelper imageHelper)
+            IImageHelper imageHelper,
+            IConverterHelper converterHelper)
         {
-            _dataContext = dataContext;
+            _context = dataContext;
             _userHelper = userHelper;
             _mailHelper = mailHelper;
             _imageHelper = imageHelper;
+            this._converterHelper = converterHelper;
         }
 
         [HttpPost]
@@ -225,6 +229,132 @@ namespace Taxi.Web.Controllers.Api
                 Message = "Reponse succes"
             });
         }
+
+
+
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [HttpPost]
+        [Route("GetUserByEmail")]
+        public async Task<IActionResult> GetUserByEmail([FromBody] EmailRequest emailRequest)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+
+            UserEntity userEntity = await _userHelper.GetUserAsync(emailRequest.Email);
+            if (userEntity == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(_converterHelper.ToUserResponse(userEntity));
+        }
+
+
+        //[HttpPost]
+        //[Route("CompleteTrip")]
+        //public async Task<IActionResult> CompleteTrip([FromBody] CompleteTripRequest completeTripRequest)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
+
+        //    TripEntity trip = await _context.Trips
+        //        .Include(t => t.TripDetails)
+        //        .FirstOrDefaultAsync(t => t.Id == completeTripRequest.TripId);
+        //    if (trip == null)
+        //    {
+        //        return BadRequest("Trip not found.");
+        //    }
+
+        //    trip.EndDate = DateTime.UtcNow;
+        //    trip.Qualification = completeTripRequest.Qualification;
+        //    trip.Remarks = completeTripRequest.Remarks;
+        //    trip.Target = completeTripRequest.Target;
+        //    trip.TargetLatitude = completeTripRequest.TargetLatitude;
+        //    trip.TargetLongitude = completeTripRequest.TargetLongitude;
+        //    trip.TripDetails.Add(new TripDetailEntity
+        //    {
+               
+        //        Date = DateTime.UtcNow,
+        //        Latitude = completeTripRequest.TargetLatitude,
+        //        Longitude = completeTripRequest.TargetLongitude
+        //    });
+
+        //    _context.Trips.Update(trip);
+        //    await _context.SaveChangesAsync();
+        //    return NoContent();
+        //}
+
+        //[HttpDelete("{id}")]
+        //public async Task<IActionResult> DeleteTripEntity([FromRoute] int id)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
+
+        //    var tripEntity = await _context.Trips
+        //        .Include(t => t.TripDetails)
+        //        .FirstOrDefaultAsync(t => t.Id == id);
+        //    if (tripEntity == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    _context.Trips.Remove(tripEntity);
+        //    await _context.SaveChangesAsync();
+
+        //    return NoContent();
+        //}
+
+        //[HttpPost]
+        //[Route("AddTripDetails")]
+        //public async Task<IActionResult> AddTripDetails([FromBody] TripDetailsRequest tripDetailsRequest)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
+
+        //    if (tripDetailsRequest.TripDetails == null || tripDetailsRequest.TripDetails.Count == 0)
+        //    {
+        //        return NoContent();
+        //    }
+
+        //    TripEntity trip = await _context.Trips
+        //        .Include(t => t.TripDetails)
+        //        .FirstOrDefaultAsync(t => t.Id == tripDetailsRequest.TripDetails.FirstOrDefault().TripId);
+        //    if (trip == null)
+        //    {
+        //        return BadRequest("Trip not found.");
+        //    }
+
+        //    if (trip.TripDetails == null)
+        //    {
+        //        trip.TripDetails = new List<TripDetailEntity>();
+        //    }
+
+        //    foreach (TripDetailRequest tripDetailRequest in tripDetailsRequest.TripDetails)
+        //    {
+        //        trip.TripDetails.Add(new TripDetailEntity
+        //        {
+                   
+        //            Date = DateTime.UtcNow,
+        //            Latitude = tripDetailRequest.Latitude,
+        //            Longitude = tripDetailRequest.Longitude
+        //        });
+        //    }
+
+        //    _context.Trips.Update(trip);
+        //    await _context.SaveChangesAsync();
+        //    return NoContent();
+        //}
+
+
 
 
     }
