@@ -104,8 +104,6 @@ namespace Taxi.Web.Controllers.Api
         }
 
 
-
-
         [HttpPost]
         [Route("RecoverPassword")]
         public async Task<IActionResult> RecoverPassword([FromBody] EmailRequest request)
@@ -181,5 +179,53 @@ namespace Taxi.Web.Controllers.Api
             UserEntity updatedUser = await _userHelper.GetUserAsync(request.Email);
             return Ok(updatedUser);
         }
+
+
+
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [HttpPost]
+        [Route("ChangePassword")]
+        public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordRequest request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(new Response
+                {
+                    IsSuccess = false,
+                    Message = "Bad request",
+                    Result = ModelState
+                });
+            }
+
+         
+
+            UserEntity user = await _userHelper.GetUserAsync(request.Email);
+            if (user == null)
+            {
+                return BadRequest(new Response
+                {
+                    IsSuccess = false,
+                    Message = "Error to user"
+                });
+            }
+
+            IdentityResult result = await _userHelper.ChangePasswordAsync(user, request.OldPassword, request.NewPassword);
+            if (!result.Succeeded)
+            {
+                return BadRequest(new Response
+                {
+                    IsSuccess = false,
+                    Message = result.Errors.FirstOrDefault().Description
+                });
+            }
+
+            return Ok(new Response
+            {
+                IsSuccess = true,
+                Message = "Reponse succes"
+            });
+        }
+
+
     }
 }
