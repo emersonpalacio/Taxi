@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Taxi.Web.Migrations
 {
-    public partial class InitialDb : Migration
+    public partial class InitialDataBase : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -264,6 +264,12 @@ namespace Taxi.Web.Migrations
                 name: "IX_AspNetUsers_UserGroupEntityId",
                 table: "AspNetUsers",
                 column: "UserGroupEntityId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Taxis_Plaque",
+                table: "Taxis",
+                column: "Plaque",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Taxis_UserId",
