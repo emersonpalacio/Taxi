@@ -44,6 +44,7 @@ namespace Taxi.Web.Data
                     LastName = lastName,
                     Email = email,
                     UserName = email,
+                    EmailConfirmed = true,
                     PhoneNumber = phone,
                     Address = address,
                     Document = document,
