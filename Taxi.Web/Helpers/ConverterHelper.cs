@@ -127,5 +127,16 @@ namespace Taxi.Web.Helpers
             };
         }
 
+
+        public List<UserGroupDetailResponse> ToUserGroupResponse(List<UserGroupDetailEntity> users)
+        {
+            return users.Select(u => new UserGroupDetailResponse
+            {
+                Id = u.Id,
+                User = ToUserResponse(u.User)
+            }).ToList();
+        }
+
+
     }
 }

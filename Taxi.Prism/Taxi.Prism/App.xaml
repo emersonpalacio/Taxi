@@ -7,7 +7,7 @@
 
         <ResourceDictionary>
             <!-- Parameters -->
-            <x:String x:Key="UrlAPI">https://taxiweb84.azurewebsites.net/</x:String>
+            <x:String x:Key="UrlAPI">https://taxiweb20200604141611.azurewebsites.net/</x:String>
 
             <!-- Colors -->
             <Color x:Key="ColorBackgroud">#FFFF05</Color>
