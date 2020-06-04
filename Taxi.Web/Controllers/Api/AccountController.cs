@@ -78,7 +78,7 @@ namespace Taxi.Web.Controllers.Api
                 PhoneNumber = request.Phone,
                 UserName = request.Email,
                 PicturePath = picturePath,
-                UserType = request.UserTypeId == 1 ? UserType.User : UserType.Driver
+                UserType = (request.UserTypeId == 1) ? UserType.User : UserType.Driver
             };
 
             IdentityResult result = await _userHelper.AddUserAsync(user, request.Password);
@@ -97,8 +97,8 @@ namespace Taxi.Web.Controllers.Api
                 token = myToken
             }, protocol: HttpContext.Request.Scheme);
 
-            _mailHelper.SendMail(request.Email, "Email Confimr", $"<h1>{"Confirm"}</h1>" +
-                $"{"Fine"}</br></br><a href = \"{tokenLink}\">{"this fine email"}</a>");
+            _mailHelper.SendMail(request.Email, "Email Confim ", $"<h1>{"Confirm"}</h1>" +
+                $"{"Fine"}</br></br><a href = \"{tokenLink}\">{"Please confirm Email"}</a>");
 
             return Ok(new Response
             {
@@ -128,7 +128,7 @@ namespace Taxi.Web.Controllers.Api
                 return BadRequest(new Response
                 {
                     IsSuccess = false,
-                    Message = "User exist"
+                    Message = "User not exist"
                 });
             }
 
