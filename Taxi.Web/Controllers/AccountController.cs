@@ -180,13 +180,13 @@ namespace Taxi.Web.Controllers
         }
 
 
-        public IActionResult ChangePassword()
+        public IActionResult ChangePasswordMVC()
         {
             return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> ChangePassword(ChangePasswordViewModel model)
+        public async Task<IActionResult> ChangePasswordMVC (ChangePasswordViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -277,13 +277,13 @@ namespace Taxi.Web.Controllers
         }
 
 
-        public IActionResult RecoverPassword()
+        public IActionResult RecoverPasswordMVC()
         {
             return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> RecoverPassword(RecoverPasswordViewModel model)
+        public async Task<IActionResult> RecoverPasswordMVC(RecoverPasswordViewModel model)
         {
             if (ModelState.IsValid)
             {
