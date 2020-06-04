@@ -25,7 +25,7 @@ namespace Taxi.Prism
         {
             SyncfusionLicenseProvider.RegisterLicense("MjY1OTk3QDMxMzgyZTMxMmUzMERkWHFmT0VickdKaXQ5cDR2QUZMMThCR2g4bXVrRnpKTmFjY0pWUjB6dWM9");
             InitializeComponent();
-            await NavigationService.NavigateAsync("TaxiMasterDetailPage/NavigationPage/LoginPage");
+            await NavigationService.NavigateAsync("TaxiMasterDetailPage/NavigationPage/HomePage");
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
