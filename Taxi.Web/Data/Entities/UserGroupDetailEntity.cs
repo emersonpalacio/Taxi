@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Taxi.Web.Data.Entities
 {
-    public class UserGroupEntity
+    public class UserGroupDetailEntity
     {
         public int Id { get; set; }
 

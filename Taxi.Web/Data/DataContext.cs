@@ -18,6 +18,9 @@ namespace Taxi.Web.Data
         public DbSet<TripEntity> Trips { get; set; }
         public DbSet<TripDetailEntity> TripDetails{ get; set; }
         public DbSet<UserGroupEntity> UserGroups { get; set; }
+        public DbSet<UserGroupDetailEntity> UserGroupDetails { get; set; }
+        public DbSet<UserGroupRequestEntity> UserGroupRequests { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
