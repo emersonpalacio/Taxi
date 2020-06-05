@@ -15,8 +15,4 @@
     <ProjectReference Include="..\Taxi.Common\Taxi.Common.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="wwwroot\images\Users\" />
-  </ItemGroup>
-
 </Project>
