@@ -342,7 +342,7 @@ namespace Taxi.Web.Controllers
             return View(model);
         }
 
-
+        
 
         public async Task<IActionResult> ConfirmUserGroup(int requestId, string token)
         {

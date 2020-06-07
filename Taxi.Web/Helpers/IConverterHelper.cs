@@ -18,5 +18,6 @@ namespace Taxi.Web.Helpers
         List<UserGroupDetailResponse> ToUserGroupResponse(List<UserGroupDetailEntity> users);
 
 
+
     }
 }

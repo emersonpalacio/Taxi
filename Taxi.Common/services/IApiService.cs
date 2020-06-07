@@ -14,5 +14,6 @@ namespace Taxi.Common
 
         Task<Response> GetUserByEmail(string urlBase, string servicePrefix, string controller, string tokenType, string accessToken, EmailRequest request);
 
+    
     }
 }
