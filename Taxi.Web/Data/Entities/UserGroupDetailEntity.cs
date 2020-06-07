@@ -11,7 +11,7 @@ namespace Taxi.Web.Data.Entities
 
         public UserEntity User { get; set; }
 
-        public ICollection<UserGroupDetailEntity> Users { get; set; }
+        public UserGroupEntity UserGroup { get; set; }
 
     }
 }
